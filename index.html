@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f4ead7">
+<title>Gelato — мороженое ручной работы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4ead7;--paper-light:#fff9ed;--ink:#34251f;--muted:#78675b;
+  --red:#b94335;--red-dark:#873126;--mint:#b8cdb6;--butter:#e7c978;
+  --line:rgba(70,47,34,.2);--serif:"DM Serif Display",Georgia,serif;
+  --sans:"Nunito Sans",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background-color:var(--paper);color:var(--ink);font-family:var(--sans);background-image:radial-gradient(rgba(92,65,43,.10) .65px,transparent .65px);background-size:5px 5px}
+button,a,input,select{font:inherit}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+:focus-visible{outline:3px solid #267c70;outline-offset:3px}
+.container{width:min(1160px,calc(100% - 44px));margin:auto}
+.announcement{background:var(--red-dark);color:#fff4df;text-align:center;padding:9px 16px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.header{position:sticky;top:0;z-index:20;background:rgba(248,239,222,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-family:var(--serif);font-size:31px;letter-spacing:-1px;color:var(--red-dark);display:flex;align-items:center;gap:9px}
+.logo-mark{width:31px;height:31px;border:2px solid var(--red);border-radius:50% 50% 45% 45%;display:grid;place-items:center;font-size:17px;transform:rotate(-9deg)}
+.nav-links{display:flex;gap:30px;font-size:13px;font-weight:800;color:#5f4b3e}
+.nav-links a{padding:10px 0;position:relative}
+.nav-links a:after{content:"";position:absolute;bottom:2px;left:0;width:0;height:2px;background:var(--red);transition:width .2s}
+.nav-links a:hover:after{width:100%}
+.cart-button{border:1px solid #8e382d;background:linear-gradient(180deg,#cf6652,#a83e32 70%,#8e3329);color:#fff7e9;padding:11px 17px;box-shadow:inset 0 1px rgba(255,255,255,.45),inset 0 -3px rgba(66,20,13,.24);font-weight:900;letter-spacing:.02em}
+.cart-button span{display:inline-grid;place-items:center;background:#f8e8ca;color:var(--red-dark);border-radius:50%;width:22px;height:22px;margin-left:8px}
+.hero{padding:58px 0 70px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:44px}
+.eyebrow{font-size:11px;letter-spacing:.19em;text-transform:uppercase;font-weight:900;color:var(--red);display:flex;align-items:center;gap:10px}
+.eyebrow:before{content:"";width:28px;height:1px;background:currentColor}
+h1,h2,h3,p{margin-top:0}
+h1{font:clamp(48px,6vw,78px)/.99 var(--serif);letter-spacing:-1.7px;margin:18px 0 22px;max-width:570px}
+h1 em{font-weight:400;color:var(--red);font-style:italic}
+.hero-copy{font-size:16px;line-height:1.75;color:var(--muted);max-width:440px}
+.hero-actions{display:flex;align-items:center;gap:18px;margin-top:30px;flex-wrap:wrap}
+.primary-button{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#c95745,#a43a2e);color:#fff8e9;padding:15px 24px;border:1px solid #873126;box-shadow:inset 0 1px rgba(255,255,255,.45),inset 0 -3px rgba(71,19,12,.22);font-weight:900;transition:transform .2s,filter .2s}
+.primary-button:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.text-link{font-size:13px;font-weight:900;border-bottom:1px solid var(--red);padding-bottom:4px}
+.hero-note{margin-top:38px;display:flex;align-items:center;gap:13px;color:var(--muted);font-size:12px;font-weight:700}
+.note-stars{color:#c08b35;letter-spacing:3px;font-size:16px}
+.hero-art{position:relative;min-height:470px;display:grid;place-items:center}
+.hero-art:before{content:"";position:absolute;width:min(420px,90%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 30%,#fff9e7 0,#e9d3aa 64%,#c9ad7d 100%);box-shadow:inset 0 4px 10px rgba(255,255,255,.8),inset 0 -10px 20px rgba(98,62,31,.13);border:1px solid rgba(106,75,42,.18)}
+.hero-art img{position:relative;width:92%;max-width:530px;aspect-ratio:1.08;object-fit:cover;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse,#000 55%,transparent 75%);filter:saturate(.9)}
+.stamp{position:absolute;right:1%;top:9%;width:104px;height:104px;border:1px dashed var(--red);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--red);font:15px/1.05 var(--serif);transform:rotate(12deg);background:rgba(255,249,237,.7)}
+.stamp b{font:900 9px var(--sans);letter-spacing:.12em;display:block;margin-top:5px}
+.hero-tag{position:absolute;bottom:5%;left:2%;background:var(--paper-light);border:1px solid var(--line);padding:13px 18px;box-shadow:3px 4px 0 rgba(88,59,39,.13);transform:rotate(-3deg);font:18px var(--serif)}
+.marquee{background:#d7e0cc;border-block:1px solid rgba(53,71,48,.2);padding:13px 0;overflow:hidden;white-space:nowrap;color:#44563e;font-weight:900;font-size:11px;letter-spacing:.17em;text-transform:uppercase}
+.marquee div{display:flex;justify-content:space-around;gap:35px}
+.marquee span:after{content:"✳";margin-left:35px;color:var(--red)}
+.section{padding:82px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:30px}
+.section-head h2{font:clamp(36px,4vw,51px)/1.05 var(--serif);margin:10px 0 0}
+.section-head p{max-width:360px;color:var(--muted);line-height:1.6;margin-bottom:4px;font-size:14px}
+.catalog{background:rgba(255,249,237,.45);border-block:1px solid var(--line)}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:25px;flex-wrap:wrap}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filter{padding:9px 14px;background:#f9f0df;border:1px solid #cbbba3;color:#665345;font-size:12px;font-weight:900}
+.filter.active,.filter:hover{background:#4e6048;color:#fff9e9;border-color:#4e6048}
+.sort-wrap{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px;font-weight:800}
+.sort-wrap select{padding:10px 34px 10px 12px;background:#fff9ed;border:1px solid #cbbba3;color:var(--ink);border-radius:0}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.product-card{background:#fff9ed;border:1px solid #d5c6ae;position:relative;display:flex;flex-direction:column;min-width:0;transition:transform .2s}
+.product-card:hover{transform:translateY(-4px)}
+.product-photo{height:220px;overflow:hidden;background:#eadfc9;position:relative;border-bottom:1px solid #d5c6ae}
+.product-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.product-card:hover .product-photo img{transform:scale(1.045)}
+.product-badge{position:absolute;top:13px;left:13px;background:#f5e5c5;color:#794333;border:1px solid #c9a77d;padding:6px 9px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.product-info{padding:19px 19px 17px;display:flex;flex-direction:column;flex:1}
+.product-meta{display:flex;justify-content:space-between;gap:10px;color:#927c68;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:900}
+.product-info h3{font:25px var(--serif);margin:10px 0 7px}
+.product-info p{color:var(--muted);font-size:13px;line-height:1.55;margin-bottom:18px;min-height:40px}
+.product-bottom{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.price{font:24px var(--serif);color:var(--red-dark);white-space:nowrap}
+.add-button{border:1px solid #4b6046;background:linear-gradient(180deg,#71866a,#4d6248);color:#fff9e9;padding:10px 13px;box-shadow:inset 0 1px rgba(255,255,255,.4),inset 0 -2px rgba(23,43,20,.25);font-size:11px;font-weight:900}
+.add-button:hover{filter:brightness(1.1)}
+.empty{grid-column:1/-1;text-align:center;padding:50px;color:var(--muted)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.story-image{position:relative;padding:18px;background:#e7d7b9;border:1px solid #c7b28f;box-shadow:inset 0 0 0 5px rgba(255,255,255,.25)}
+.story-image img{width:100%;height:370px;object-fit:cover;display:block}
+.story-image:after{content:"Сделано с любовью";position:absolute;right:-17px;bottom:35px;background:var(--red);color:#fff3dc;padding:12px 17px;font:18px var(--serif);transform:rotate(-5deg)}
+.story-copy h2{font:clamp(38px,4vw,52px)/1.05 var(--serif);margin:12px 0 20px}
+.story-copy p{color:var(--muted);line-height:1.8;font-size:14px}
+.story-points{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:27px}
+.story-point{border-top:1px solid var(--line);padding-top:12px}
+.story-point b{display:block;font:21px var(--serif);color:var(--red-dark);margin-bottom:4px}
+.story-point span{font-size:11px;color:var(--muted);font-weight:700}
+.flavors{background:#dce5d3;border-block:1px solid #b5c5ae}
+.flavor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.flavor{padding:23px 22px 20px;border:1px solid rgba(63,83,56,.28);background:rgba(255,255,255,.33);min-height:145px}
+.flavor-icon{font-size:25px;margin-bottom:13px}
+.flavor h3{font:22px var(--serif);margin:0 0 7px}
+.flavor p{font-size:12px;line-height:1.55;color:#596653;margin:0}
+.faq-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:60px}
+.faq-layout h2{font:clamp(38px,4vw,52px)/1.05 var(--serif);margin:12px 0}
+.faq-layout>div:first-child p{color:var(--muted);font-size:14px;line-height:1.7}
+.faq-item{border-top:1px solid var(--line)}
+.faq-item:last-child{border-bottom:1px solid var(--line)}
+.faq-question{width:100%;display:flex;justify-content:space-between;gap:15px;align-items:center;padding:19px 0;background:none;border:0;text-align:left;color:var(--ink);font:21px var(--serif)}
+.faq-question span:last-child{font:22px var(--sans);color:var(--red)}
+.faq-answer{display:none;color:var(--muted);font-size:13px;line-height:1.7;padding:0 35px 18px 0;max-width:620px}
+.faq-item.open .faq-answer{display:block}
+.footer{background:#342b25;color:#f7ecd8;padding:48px 0 25px}
+.footer-top{display:flex;justify-content:space-between;gap:30px;align-items:start;padding-bottom:38px;border-bottom:1px solid rgba(255,255,255,.2)}
+.footer .logo{color:#f5d7a1}
+.footer p{color:#c5b8a5;font-size:12px;line-height:1.7;max-width:290px;margin:12px 0 0}
+.footer-links{display:flex;gap:26px;flex-wrap:wrap;font-size:12px;font-weight:800}
+.footer-bottom{display:flex;justify-content:space-between;gap:15px;padding-top:20px;color:#b9aa96;font-size:10px;letter-spacing:.08em}
+.toast{position:fixed;bottom:22px;right:22px;background:#344b36;color:#fff9e9;padding:14px 18px;border:1px solid #8fa58a;z-index:50;transform:translateY(120px);opacity:0;transition:.25s;font-size:13px;font-weight:800}
+.toast.show{transform:translateY(0);opacity:1}
+.cart-overlay{position:fixed;inset:0;background:rgba(35,26,20,.5);z-index:40;display:none}
+.cart-overlay.open{display:block}
+.cart-panel{position:absolute;right:0;top:0;height:100%;width:min(420px,100%);background:var(--paper-light);padding:25px;overflow:auto;box-shadow:-8px 0 25px rgba(0,0,0,.15)}
+.cart-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px}
+.cart-head h2{font:30px var(--serif);margin:0}
+.close-cart{background:none;border:0;font-size:27px;color:var(--red)}
+.cart-list{padding:10px 0}
+.cart-row{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.cart-row img{width:64px;height:64px;object-fit:cover}
+.cart-row b{display:block;font:17px var(--serif)}
+.cart-row small{color:var(--muted);font-size:11px}
+.qty{display:flex;align-items:center;gap:8px;margin-top:6px}
+.qty button{width:23px;height:23px;border:1px solid #b8a58b;background:#f2e5cf}
+.remove{border:0;background:none;color:var(--red);font-size:11px;text-decoration:underline}
+.cart-total{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;font-weight:900}
+.cart-total strong{font:25px var(--serif);color:var(--red-dark)}
+.checkout{width:100%;margin-top:18px}
+.cart-empty{text-align:center;color:var(--muted);padding:35px 0;font-size:13px}
+@media(max-width:850px){
+ .nav-links{gap:15px}.hero-grid{gap:15px}.hero-art{min-height:380px}.products{grid-template-columns:repeat(2,1fr)}
+ .story-grid{gap:30px}.faq-layout{gap:30px}
+}
+@media(max-width:620px){
+ .container{width:min(100% - 30px,500px)}
+ .announcement{font-size:9px;letter-spacing:.08em}
+ .nav{height:65px}.logo{font-size:27px}.nav-links{display:none}.cart-button{padding:9px 11px;font-size:11px}
+ .hero{padding:40px 0 45px}.hero-grid{grid-template-columns:1fr;gap:8px}.hero-art{min-height:300px;grid-row:1}.hero-art:before{width:270px}.hero-art img{width:100%;max-width:380px}.stamp{width:78px;height:78px;font-size:12px;right:0;top:5%}.hero-tag{font-size:15px;bottom:0}
+ h1{font-size:52px;margin:13px 0 17px}.hero-copy{font-size:14px}.hero-note{margin-top:23px}
+ .section{padding:58px 0}.section-head{display:block}.section-head p{margin-top:14px}.section-head h2{font-size:39px}
+ .toolbar{align-items:flex-start}.sort-wrap{width:100%;justify-content:space-between}.sort-wrap select{flex:1;max-width:220px}
+ .products{grid-template-columns:1fr 1fr;gap:11px}.product-photo{height:155px}.product-info{padding:13px 12px}.product-info h3{font-size:20px}.product-info p{font-size:11px;min-height:54px}.product-meta{font-size:8px}.price{font-size:20px}.add-button{padding:9px 8px;font-size:9px}
+ .story-grid{grid-template-columns:1fr;gap:35px}.story-image img{height:270px}.story-copy h2{font-size:41px}
+ .flavor-grid{grid-template-columns:1fr 1fr;gap:10px}.flavor{padding:17px 14px;min-height:140px}.flavor h3{font-size:19px}
+ .faq-layout{grid-template-columns:1fr;gap:20px}.faq-question{font-size:19px}
+ .footer-top{display:block}.footer-links{margin-top:25px;gap:18px}.footer-bottom{display:block;line-height:2}
+}
+@media(max-width:380px){.products{grid-template-columns:1fr}.product-photo{height:210px}.product-info p{min-height:0}.flavor-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="announcement">Натуральные ингредиенты · Готовим каждый день · Доставка по Ташкенту</div>
+<header class="header">
+ <div class="container nav">
+  <a class="logo" href="#"><span class="logo-mark">✳</span> gelato.</a>
+  <nav class="nav-links" aria-label="Главная навигация">
+   <a href="#products">Продукция</a><a href="#about">О нас</a><a href="#flavors">Наш подход</a><a href="#faq">FAQ</a>
+  </nav>
+  <button class="cart-button" id="openCart">Корзина <span id="cartCount">0</span></button>
+ </div>
+</header>
+<main>
+<section class="hero">
+ <div class="container hero-grid">
+  <div>
+   <div class="eyebrow">Маленькая радость каждый день</div>
+   <h1>Счастье<br>на <em>вкус.</em></h1>
+   <p class="hero-copy">Мороженое ручной работы из натуральных ингредиентов. Нежная текстура, яркие вкусы и ни одного скучного дня.</p>
+   <div class="hero-actions"><a class="primary-button" href="#products">Выбрать вкус <span aria-hidden="true">↗</span></a><a class="text-link" href="#about">Наша история</a></div>
+   <div class="hero-note"><span class="note-stars">★★★★★</span><span>Создаём маленькие поводы для радости</span></div>
+  </div>
+  <div class="hero-art">
+   <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1000&q=85" alt="Разноцветное мороженое в вафельном рожке">
+   <div class="stamp">100%<b>НАТУРАЛЬНО</b></div><div class="hero-tag">Сделано вручную ✳</div>
+  </div>
+ </div>
+</section>
+<div class="marquee"><div><span>Натуральное молоко</span><span>Ягоды и фрукты</span><span>Без компромиссов</span><span>С любовью к деталям</span></div></div>
+<section class="section catalog" id="products">
+ <div class="container">
+  <div class="section-head"><div><div class="eyebrow">Витрина вкусов</div><h2>Выбери своё<br>настроение</h2></div><p>От знакомой классики до необычных сочетаний. Каждая порция — маленькая история.</p></div>
+  <div class="toolbar">
+   <div class="filters" id="filters">
+    <button class="filter active" data-filter="all">Все вкусы</button><button class="filter" data-filter="classic">Классика</button><button class="filter" data-filter="fruit">Фруктовые</button><button class="filter" data-filter="special">Особенные</button>
+   </div>
+   <label class="sort-wrap">Сортировать
+    <select id="sort"><option value="popular">По популярности</option><option value="low">Сначала дешевле</option><option value="high">Сначала дороже</option><option value="name">По названию</option></select>
+   </label>
+  </div>
+  <div class="products" id="productsGrid"></div>
+ </div>
+</section>
+<section class="section" id="about">
+ <div class="container story-grid">
+  <div class="story-image"><img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=1000&q=85" alt="Мороженое в вафельном стаканчике"></div>
+  <div class="story-copy"><div class="eyebrow">Наша философия</div><h2>Настоящий вкус — без лишнего.</h2>
+   <p>Мы верим, что хорошее мороженое начинается с простых вещей: качественного молока, спелых фруктов и времени, которое нужно, чтобы всё получилось правильно.</p>
+   <p>Готовим небольшими партиями, чтобы каждая ложка была такой же свежей и вкусной, как первая.</p>
+   <div class="story-points"><div class="story-point"><b>01</b><span>Понятный состав</span></div><div class="story-point"><b>02</b><span>Свежие партии</span></div><div class="story-point"><b>03</b><span>Яркие ингредиенты</span></div><div class="story-point"><b>04</b><span>Ручная работа</span></div></div>
+  </div>
+ </div>
+</section>
+<section class="section flavors" id="flavors">
+ <div class="container"><div class="section-head"><div><div class="eyebrow">В чём секрет?</div><h2>Простые вещи.<br>Большая любовь.</h2></div><p>Никаких сложных обещаний — только то, что действительно важно для хорошего десерта.</p></div>
+  <div class="flavor-grid">
+   <article class="flavor"><div class="flavor-icon">🥛</div><h3>Хорошая основа</h3><p>Нежная молочная база и сливочная текстура в каждой порции.</p></article>
+   <article class="flavor"><div class="flavor-icon">🍓</div><h3>Настоящие ягоды</h3><p>Фрукты и ягоды задают вкус, цвет и характер наших десертов.</p></article>
+   <article class="flavor"><div class="flavor-icon">🍦</div><h3>Свежесть каждый день</h3><p>Готовим небольшими партиями и внимательно следим за качеством.</p></article>
+  </div>
+ </div>
+</section>
+<section class="section" id="faq">
+ <div class="container faq-layout">
+  <div><div class="eyebrow">Есть вопросы?</div><h2>С удовольствием ответим.</h2><p>Собрали короткие ответы на то, что чаще всего спрашивают перед заказом.</p></div>
+  <div>
+   <div class="faq-item open"><button class="faq-question" aria-expanded="true">Из чего вы готовите мороженое?<span>−</span></button><div class="faq-answer">Используем молочную основу, фрукты, ягоды и другие ингредиенты, которые раскрывают вкус каждого рецепта. Полный состав можно уточнить при заказе.</div></div>
+   <div class="faq-item"><button class="faq-question" aria-expanded="false">Есть ли доставка по Ташкенту?<span>＋</span></button><div class="faq-answer">Да, доставка доступна по Ташкенту. Стоимость и время зависят от адреса и уточняются при оформлении заказа.</div></div>
+   <div class="faq-item"><button class="faq-question" aria-expanded="false">Как хранить мороженое?<span>＋</span></button><div class="faq-answer">Храните десерт в морозильной камере и не оставляйте надолго при комнатной температуре. Перед подачей дайте ему немного смягчиться.</div></div>
+   <div class="faq-item"><button class="faq-question" aria-expanded="false">Можно заказать несколько вкусов?<span>＋</span></button><div class="faq-answer">Конечно! Добавьте разные позиции в корзину — количество каждого вкуса можно изменить прямо в ней.</div></div>
+  </div>
+ </div>
+</section>
+</main>
+<footer class="footer">
+ <div class="container"><div class="footer-top"><div><a class="logo" href="#"><span class="logo-mark">✳</span> gelato.</a><p>Мороженое ручной работы. Простые ингредиенты, честный вкус и немного сладкого волшебства.</p></div><div class="footer-links"><a href="#products">Продукция</a><a href="#about">О нас</a><a href="#faq">Вопросы</a><a href="tel:+998000000000">Связаться</a></div></div>
+ <div class="footer-bottom"><span>© 2026 GELATO. Все права защищены.</span><span>Сделано с любовью к мороженому ✳</span></div></div>
+</footer>
+<div class="cart-overlay" id="cartOverlay" aria-hidden="true">
+ <aside class="cart-panel" role="dialog" aria-modal="true" aria-label="Корзина">
+  <div class="cart-head"><h2>Твоя корзина</h2><button class="close-cart" id="closeCart" aria-label="Закрыть корзину">×</button></div>
+  <div class="cart-list" id="cartList"></div>
+  <div class="cart-total"><span>Итого</span><strong id="cartTotal">0 сум</strong></div>
+  <button class="primary-button checkout" id="checkout">Оформить заказ ↗</button>
+ </aside>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const products=[
+ {id:1,name:"Ванильный пломбир",category:"classic",label:"Бестселлер",desc:"Классический сливочный вкус с натуральной ванилью.",price:28000,pop:10,img:"https://images.unsplash.com/photo-1501446529957-6226bd447c46?auto=format&fit=crop&w=800&q=85"},
+ {id:2,name:"Клубничное поле",category:"fruit",label:"Ягодный",desc:"Сочная клубника и нежная сливочная основа.",price:32000,pop:9,img:"https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=800&q=85"},
+ {id:3,name:"Шоколадный бархат",category:"classic",label:"Для гурманов",desc:"Глубокий какао-вкус и мягкое шоколадное послевкусие.",price:34000,pop:8,img:"https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=800&q=85"},
+ {id:4,name:"Манго-маракуйя",category:"fruit",label:"Тропический",desc:"Яркое фруктовое сочетание с лёгкой кислинкой.",price:36000,pop:7,img:"https://images.unsplash.com/photo-1488900128323-21503983a07e?auto=format&fit=crop&w=800&q=85"},
+ {id:5,name:"Фисташковый крем",category:"special",label:"Особенный",desc:"Ореховый характер, деликатная сладость и кремовая текстура.",price:42000,pop:9,img:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=85"},
+ {id:6,name:"Солёная карамель",category:"special",label:"Любимый вкус",desc:"Сливочная карамель с тонким балансом соли.",price:38000,pop:8,img:"https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=85"}
+];
+// Replace one intentionally generic image URL with a valid strawberry dessert image.
+products[1].img="https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=800&q=85".replace("photo- Strawberry","photo-1560008581-09826d1de69e");
+let filter="all",cart={};
+const grid=document.getElementById("productsGrid");
+const money=n=>new Intl.NumberFormat("ru-RU").format(n)+" сум";
+function renderProducts(){
+ let list=products.filter(p=>filter==="all"||p.category===filter);
+ const sort=document.getElementById("sort").value;
+ if(sort==="low")list.sort((a,b)=>a.price-b.price);
+ if(sort==="high")list.sort((a,b)=>b.price-a.price);
+ if(sort==="name")list.sort((a,b)=>a.name.localeCompare(b.name,"ru"));
+ if(sort==="popular")list.sort((a,b)=>b.pop-a.pop);
+ grid.innerHTML=list.length?list.map(p=>`<article class="product-card">
+  <div class="product-photo"><img src="${p.img}" alt="${p.name}" loading="lazy"><span class="product-badge">${p.label}</span></div>
+  <div class="product-info"><div class="product-meta"><span>${p.category==="classic"?"Классика":p.category==="fruit"?"Фрукты и ягоды":"Особенная серия"}</span><span>№ 0${p.id}</span></div>
+  <h3>${p.name}</h3><p>${p.desc}</p><div class="product-bottom"><span class="price">${money(p.price)}</span><button class="add-button" data-add="${p.id}">+ В КОРЗИНУ</button></div></div></article>`).join(""):'<div class="empty">В этой категории пока нет вкусов.</div>';
+}
+function updateCart(){
+ const count=Object.values(cart).reduce((a,b)=>a+b,0);
+ document.getElementById("cartCount").textContent=count;
+ const list=document.getElementById("cartList");
+ const entries=Object.entries(cart).filter(([,q])=>q>0);
+ if(!entries.length){list.innerHTML='<div class="cart-empty">Корзина пока пустая.<br>Самое время выбрать любимый вкус 🍦</div>';document.getElementById("checkout").disabled=true;document.getElementById("checkout").style.opacity=".5";}
+ else{
+  list.innerHTML=entries.map(([id,q])=>{const p=products.find(x=>x.id===+id);return `<div class="cart-row"><img src="${p.img}" alt=""><div><b>${p.name}</b><small>${money(p.price)} за порцию</small><div class="qty"><button data-qty="${id}" data-delta="-1" aria-label="Уменьшить">−</button><span>${q}</span><button data-qty="${id}" data-delta="1" aria-label="Увеличить">+</button></div></div><button class="remove" data-remove="${id}">Удалить</button></div>`}).join("");
+  document.getElementById("checkout").disabled=false;document.getElementById("checkout").style.opacity="1";
+ }
+ const total=entries.reduce((sum,[id,q])=>sum+products.find(p=>p.id===+id).price*q,0);
+ document.getElementById("cartTotal").textContent=money(total);
+}
+function showToast(text){const t=document.getElementById("toast");t.textContent=text;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
+grid.addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(!b)return;const id=b.dataset.add;cart[id]=(cart[id]||0)+1;updateCart();showToast("Добавлено в корзину 🍦")});
+document.getElementById("filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(!b)return;filter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));renderProducts()});
+document.getElementById("sort").addEventListener("change",renderProducts);
+document.getElementById("cartList").addEventListener("click",e=>{
+ const q=e.target.closest("[data-qty]"),r=e.target.closest("[data-remove]");
+ if(q){const id=q.dataset.qty;cart[id]=Math.max(0,(cart[id]||0)+Number(q.dataset.delta));if(!cart[id])delete cart[id];}
+ if(r)delete cart[r.dataset.remove];updateCart();
+});
+const overlay=document.getElementById("cartOverlay");
+function openCart(){overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");document.getElementById("closeCart").focus()}
+function closeCart(){overlay.classList.remove("open");overlay.setAttribute("aria-hidden","true");document.getElementById("openCart").focus()}
+document.getElementById("openCart").addEventListener("click",openCart);
+document.getElementById("closeCart").addEventListener("click",closeCart);
+overlay.addEventListener("click",e=>{if(e.target===overlay)closeCart()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("open"))closeCart()});
+document.getElementById("checkout").addEventListener("click",()=>{
+ const entries=Object.entries(cart).filter(([,q])=>q>0);
+ if(!entries.length)return;
+ const lines=entries.map(([id,q])=>{const p=products.find(x=>x.id===+id);return `${p.name} × ${q} — ${money(p.price*q)}`});
+ const total=entries.reduce((sum,[id,q])=>sum+products.find(p=>p.id===+id).price*q,0);
+ const message=encodeURIComponent("Здравствуйте! Хочу оформить заказ:\n"+lines.join("\n")+"\nИтого: "+money(total));
+ window.location.href="https://wa.me/?text="+message;
+});
+document.querySelectorAll(".faq-question").forEach(btn=>btn.addEventListener("click",()=>{
+ const item=btn.closest(".faq-item"),open=item.classList.toggle("open");
+ btn.setAttribute("aria-expanded",String(open));btn.querySelector("span:last-child").textContent=open?"−":"＋";
+}));
+renderProducts();updateCart();
+</script>
+</body>
+</html>
